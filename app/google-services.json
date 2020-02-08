@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "936303324693",
+    "firebase_url": "https://book-buy-d32ac.firebaseio.com",
+    "project_id": "book-buy-d32ac",
+    "storage_bucket": "book-buy-d32ac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:936303324693:android:668a1a047a10b7923a281c",
+        "android_client_info": {
+          "package_name": "com.example.bookbuy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "936303324693-d9dgmsfitfbk4m9p06d8pd7pme1sokck.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC69QQQxHsnlwRaplF09VOEtCYyCuggMXo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "936303324693-d9dgmsfitfbk4m9p06d8pd7pme1sokck.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
