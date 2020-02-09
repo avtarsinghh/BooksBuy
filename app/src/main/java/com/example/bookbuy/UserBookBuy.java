@@ -8,13 +8,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class BookBuy extends AppCompatActivity {
+public class UserBookBuy extends AppCompatActivity {
     EditText edId, edTitle, edAuthor, edPublisher, edLanguage, edEdition, edRating, edYOP, eddescription;
     Button btnPurchase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_book_buy);
+        setContentView(R.layout.activity_user_book_buy);
         edId = (EditText)findViewById(R.id.edt1);
         edTitle = (EditText)findViewById(R.id.edt2);
         edAuthor = (EditText)findViewById(R.id.edt3);
