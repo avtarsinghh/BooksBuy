@@ -112,19 +112,5 @@ public class SignUp extends AppCompatActivity {
                 }
             }
         });
-
-
-
-        mAuth.createUserWithEmailAndPassword("av.avtargill@gmail.com", "123456").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    Toast.makeText(SignUp.this, "Success", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    Log.i("taskError", task.getException().getMessage());
-                }
-            }
-        });
     }
 }
