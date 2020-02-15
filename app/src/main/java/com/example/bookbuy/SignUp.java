@@ -48,6 +48,7 @@ public class SignUp extends AppCompatActivity {
         submit = findViewById(R.id.submit);
         db = FirebaseFirestore.getInstance();
 
+        mAuth = FirebaseAuth.getInstance(); // Added by Avtar
 
 
         submit.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +77,7 @@ public class SignUp extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (!task.isSuccessful()) {
+                                    Log.i("taskError", task.getException().getMessage());
                                     Toast.makeText(SignUp.this, "Signup Unsuccessful, please try again", Toast.LENGTH_SHORT).show();
                                 } else {
 
@@ -90,6 +92,8 @@ public class SignUp extends AppCompatActivity {
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
                                                     Toast.makeText(SignUp.this, "Submitted", Toast.LENGTH_SHORT).show();
+                                                    Intent intent = new Intent(SignUp.this, Login.class);
+                                                    startActivity(intent);
                                                 }
                                             })
                                             .addOnFailureListener(new OnFailureListener() {
@@ -99,9 +103,6 @@ public class SignUp extends AppCompatActivity {
                                                 }
                                             });
 
-
-                                    Intent intent = new Intent(SignUp.this, Login.class);
-                                    startActivity(intent);
                                 }
                             }
                         });
@@ -112,5 +113,18 @@ public class SignUp extends AppCompatActivity {
             }
         });
 
+
+
+        mAuth.createUserWithEmailAndPassword("av.avtargill@gmail.com", "123456").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    Toast.makeText(SignUp.this, "Success", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Log.i("taskError", task.getException().getMessage());
+                }
+            }
+        });
     }
 }

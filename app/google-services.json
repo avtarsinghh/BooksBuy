@@ -1,50 +1,34 @@
 {
   "project_info": {
-    "project_number": "275256427137",
-    "firebase_url": "https://book-buy-b7962.firebaseio.com",
-    "project_id": "book-buy-b7962",
-    "storage_bucket": "book-buy-b7962.appspot.com"
+    "project_number": "1088913353716",
+    "firebase_url": "https://book-buy-10a1d.firebaseio.com",
+    "project_id": "book-buy-10a1d",
+    "storage_bucket": "book-buy-10a1d.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:275256427137:android:16a4a1bb79da56228b0380",
+        "mobilesdk_app_id": "1:1088913353716:android:42bedffd5e33f653ed27a1",
         "android_client_info": {
           "package_name": "com.example.bookbuy"
         }
       },
       "oauth_client": [
         {
-          "client_id": "275256427137-598i8i27sidqs16e9grlp3614qud345k.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.bookbuy",
-            "certificate_hash": "f865f056bcb1f8627a7c9d1ce917386acda75094"
-          }
-        },
-        {
-          "client_id": "275256427137-ndfeuqrjo0kg2limld1cvo8ouqvr30pa.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.bookbuy",
-            "certificate_hash": "5d599401c28a518d7fb0dd0226ea1545be5b5cfd"
-          }
-        },
-        {
-          "client_id": "275256427137-am5tjk97s13ofpmiftb96gkvnuee0kh5.apps.googleusercontent.com",
+          "client_id": "1088913353716-6na8339fl88bqpmhdeoiee2q49caepcr.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBv2He3v_sV3g_DGMVBMqBJkh_lu9ceS4k"
+          "current_key": "AIzaSyA9gpahUdY8B_jmVpvzESWAAp24k67GSNY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "275256427137-am5tjk97s13ofpmiftb96gkvnuee0kh5.apps.googleusercontent.com",
+              "client_id": "1088913353716-6na8339fl88bqpmhdeoiee2q49caepcr.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

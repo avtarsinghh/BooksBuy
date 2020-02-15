@@ -46,7 +46,7 @@ public class Login extends AppCompatActivity {
         login = findViewById(R.id.login);
         signUp = findViewById(R.id.signUp);
         Spinner spinner = findViewById(R.id.role);
-        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseAuth = FirebaseAuth.getInstance(); // Added by Avtar
         ArrayList<String> arrayList = new ArrayList<>();
         arrayList.add("Select Role");
         arrayList.add("User");
