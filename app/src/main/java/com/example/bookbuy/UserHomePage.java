@@ -2,6 +2,7 @@ package com.example.bookbuy;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -14,37 +15,44 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
+
 public class UserHomePage extends AppCompatActivity {
 
     RecyclerView recyclerView;
-
-
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-
+    FirebaseFirestore firestore;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_home_page);
+        setContentView(R.layout.activity_admin_home_page);
+        recyclerView = findViewById(R.id.recyclerView);
+        firestore = FirebaseFirestore.getInstance();
 
-        recyclerView=findViewById(R.id.recyclerview);
-
-
-
-        db.collection("books")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult())
-                            {
-                                Toast.makeText(UserHomePage.this,"=>",Toast.LENGTH_SHORT);
-                            }
-                        } else
-                            {
-                                Toast.makeText(UserHomePage.this,"error",Toast.LENGTH_SHORT);
-                        }
-                    }
-                });
+        firestore.collection("books").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                ArrayList<Books> books = new ArrayList<>();
+                for(QueryDocumentSnapshot snapshot : task.getResult()){
+                    Books book = new Books();
+                    book.setId(snapshot.getId());
+                    book.setTitle(""+snapshot.getData().get("title"));
+                    book.setPublisher(""+snapshot.getData().get("publisher"));
+                    book.setLanguage(""+snapshot.getData().get("language"));
+                    book.setEdition(""+snapshot.getData().get("edition"));
+                    book.setRating(""+snapshot.getData().get("rating"));
+                    book.setYop(""+snapshot.getData().get("yop"));
+                    book.setDescription(""+snapshot.getData().get("description"));
+                    book.setAuthor(""+snapshot.getData().get("author"));
+                    book.setImage(""+snapshot.getData().get("linkToImage"));
+                    books.add(book);
+                }
+                BooksAdapter booksAdapter = new BooksAdapter(
+                        getApplicationContext(), books
+                );
+                recyclerView.setAdapter(booksAdapter);
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+                recyclerView.setLayoutManager(layoutManager);
+            }
+        });
     }
 }
