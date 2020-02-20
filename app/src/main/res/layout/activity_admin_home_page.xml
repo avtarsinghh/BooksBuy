@@ -12,11 +12,11 @@
         android:layout_height="match_parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingButtonAdmin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/recyclerView"
-        app:layout_constraintEnd_toEndOf="@+id/recyclerView"
         android:src="@drawable/round_library_add_black_48"
-        android:id="@+id/floatingButtonAdmin"/>
+        app:layout_constraintBottom_toBottomOf="@+id/recyclerView"
+        app:layout_constraintStart_toStartOf="@+id/recyclerView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

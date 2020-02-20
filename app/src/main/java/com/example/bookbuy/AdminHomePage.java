@@ -64,6 +64,7 @@ public class AdminHomePage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), AdminAddModifyBook.class);
+                intent.putExtra("mode", "a");
                 startActivity(intent);
             }
         });
