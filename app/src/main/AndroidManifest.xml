@@ -11,7 +11,9 @@
         android:theme="@style/AppTheme">
         <activity android:name=".UserBookBuy"></activity>
         <activity android:name=".AdminAddModifyBook" />
-        <activity android:name=".AdminHomePage" />
+        <activity android:name=".AdminHomePage"
+            android:exported="true"/>
+
         <activity android:name=".UserHomePage" />
         <activity android:name=".SignUp" />
         <activity android:name=".Login" />

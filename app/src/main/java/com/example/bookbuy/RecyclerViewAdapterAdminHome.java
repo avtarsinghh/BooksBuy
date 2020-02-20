@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -42,7 +43,7 @@ public class RecyclerViewAdapterAdminHome extends RecyclerView.Adapter<RecyclerV
         holder.editionTV.setText(books.get(position).getEdition());
         holder.ratingTV.setText(books.get(position).getRating());
         holder.yopTV.setText(books.get(position).getYop());
-        Picasso.get().load(books.get(position).getImage()).into(holder.imageBook);
+        Picasso.get().load(books.get(position).getImage()).fit().into(holder.imageBook);
     }
 
     @Override
