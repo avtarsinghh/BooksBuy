@@ -7,8 +7,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,6 +26,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.security.PrivateKey;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,7 +37,7 @@ public class SignUp extends AppCompatActivity {
     private FirebaseAuth mAuth;
     FirebaseFirestore db;
     private static final String TAG = "EmailPassword";
-
+    String tutorialsName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +50,31 @@ public class SignUp extends AppCompatActivity {
         passwordSignUp = findViewById(R.id.passwordSignUp);
         confirmPassword = findViewById(R.id.confirmPassword);
         submit = findViewById(R.id.submit);
-        db = FirebaseFirestore.getInstance();
 
-        mAuth = FirebaseAuth.getInstance(); // Added by Avtar
+        //spinner  role
+        Spinner spinner = findViewById(R.id.role);
+        ArrayList<String> arrayList = new ArrayList<>();
+        arrayList.add("Select Role");
+        arrayList.add("User");
+        arrayList.add("Admin");
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,arrayList);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(arrayAdapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                tutorialsName = parent.getItemAtPosition(position).toString();
+                Toast.makeText(parent.getContext(), "Selected: " + tutorialsName,  Toast.LENGTH_LONG).show();
+            }
+            @Override
+            public void onNothingSelected(AdapterView <?> parent) {
+            }
+        });
+
+        //creating an instamce for database
+        db = FirebaseFirestore.getInstance();
+        //creating an instance for firebase authentication
+        mAuth = FirebaseAuth.getInstance();
 
 
         submit.setOnClickListener(new View.OnClickListener() {
@@ -85,8 +111,11 @@ public class SignUp extends AppCompatActivity {
                                     Map<String,Object> user = new HashMap<>();
                                     user.put("name",name);
                                     user.put("email",email);
+                                    user.put("role", tutorialsName);
 
-                                    db.collection("Details").document("1")
+                                    FirebaseUser userFb = FirebaseAuth.getInstance().getCurrentUser();
+
+                                    db.collection("users").document(userFb.getUid())
                                             .set(user)
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
@@ -112,5 +141,7 @@ public class SignUp extends AppCompatActivity {
                 }
             }
         });
+
     }
+
 }

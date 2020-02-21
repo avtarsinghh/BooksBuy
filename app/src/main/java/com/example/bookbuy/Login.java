@@ -22,6 +22,7 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class Login extends AppCompatActivity {
     Button login;
     TextView signUp;
     private FirebaseAuth mFirebaseAuth;
+    FirebaseFirestore db;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
     @Override
@@ -40,30 +42,12 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
+        mFirebaseAuth = FirebaseAuth.getInstance();
         emailEt = findViewById(R.id.email);
         passwordEt = findViewById(R.id.password);
         login = findViewById(R.id.login);
         signUp = findViewById(R.id.signUp);
-        Spinner spinner = findViewById(R.id.role);
-        mFirebaseAuth = FirebaseAuth.getInstance(); // Added by Avtar
-        ArrayList<String> arrayList = new ArrayList<>();
-        arrayList.add("Select Role");
-        arrayList.add("User");
-        arrayList.add("Admin");
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,arrayList);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(arrayAdapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String tutorialsName = parent.getItemAtPosition(position).toString();
-                Toast.makeText(parent.getContext(), "Selected: " + tutorialsName,          Toast.LENGTH_LONG).show();
-            }
-            @Override
-            public void onNothingSelected(AdapterView <?> parent) {
-            }
-        });
+        db = FirebaseFirestore.getInstance();
 
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,6 +92,7 @@ public class Login extends AppCompatActivity {
                                 if (!task.isSuccessful()) {
                                     Toast.makeText(Login.this, "Login Unsuccessful, please try again", Toast.LENGTH_SHORT).show();
                                 } else {
+                                    FirebaseUser userFb = FirebaseAuth.getInstance().getCurrentUser();
                                     Intent intent = new Intent(Login.this, UserHomePage.class);
                                     startActivity(intent);
                                 }
