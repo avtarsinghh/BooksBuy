@@ -51,25 +51,7 @@ public class SignUp extends AppCompatActivity {
         confirmPassword = findViewById(R.id.confirmPassword);
         submit = findViewById(R.id.submit);
 
-        //spinner  role
-        Spinner spinner = findViewById(R.id.role);
-        ArrayList<String> arrayList = new ArrayList<>();
-        arrayList.add("Select Role");
-        arrayList.add("User");
-        arrayList.add("Admin");
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,arrayList);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(arrayAdapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                tutorialsName = parent.getItemAtPosition(position).toString();
-                Toast.makeText(parent.getContext(), "Selected: " + tutorialsName,  Toast.LENGTH_LONG).show();
-            }
-            @Override
-            public void onNothingSelected(AdapterView <?> parent) {
-            }
-        });
+
 
         //creating an instamce for database
         db = FirebaseFirestore.getInstance();
@@ -111,7 +93,7 @@ public class SignUp extends AppCompatActivity {
                                     Map<String,Object> user = new HashMap<>();
                                     user.put("name",name);
                                     user.put("email",email);
-                                    user.put("role", tutorialsName);
+                                    user.put("isAdmin", false);
 
                                     FirebaseUser userFb = FirebaseAuth.getInstance().getCurrentUser();
 

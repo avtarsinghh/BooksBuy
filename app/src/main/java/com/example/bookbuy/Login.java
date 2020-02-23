@@ -75,8 +75,8 @@ public class Login extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = emailEt.getText().toString();
-                String password = passwordEt.getText().toString();
+                final String email = emailEt.getText().toString();
+                final String password = passwordEt.getText().toString();
                 if (email.isEmpty()) {
                         emailEt.setError("Please enter email id");
                         emailEt.requestFocus();
@@ -91,10 +91,16 @@ public class Login extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (!task.isSuccessful()) {
                                     Toast.makeText(Login.this, "Login Unsuccessful, please try again", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    FirebaseUser userFb = FirebaseAuth.getInstance().getCurrentUser();
+                                } else {if (email.equals("avi.avtargill@gmail.com")&&password.equals("123456"))
+                                {
+                                    Intent i = new Intent(Login.this,AdminHomePage.class);
+                                    startActivity(i);
+                                }
+                                else
+                                    {
                                     Intent intent = new Intent(Login.this, UserHomePage.class);
                                     startActivity(intent);
+                                }
                                 }
                             }
                         });
