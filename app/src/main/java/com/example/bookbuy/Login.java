@@ -91,7 +91,7 @@ public class Login extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (!task.isSuccessful()) {
                                     Toast.makeText(Login.this, "Login Unsuccessful, please try again", Toast.LENGTH_SHORT).show();
-                                } else {if (email.equals("avi.avtargill@gmail.com")&&password.equals("123456"))
+                                } else {if (email.equals("av.avtargill@gmail.com")&&password.equals("123456"))
                                 {
                                     Intent i = new Intent(Login.this,AdminHomePage.class);
                                     startActivity(i);
