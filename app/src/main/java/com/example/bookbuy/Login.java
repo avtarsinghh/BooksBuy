@@ -48,6 +48,8 @@ public class Login extends AppCompatActivity {
         login = findViewById(R.id.login);
         signUp = findViewById(R.id.signUp);
         db = FirebaseFirestore.getInstance();
+        final String email = emailEt.getText().toString();
+        final String password = passwordEt.getText().toString();
 
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,8 +65,14 @@ public class Login extends AppCompatActivity {
                 FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
                 if(mFirebaseUser != null){
                     Toast.makeText(Login.this, "You are logged in ", Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(Login.this,UserHomePage.class);
-                    startActivity(i);
+                    if(mFirebaseUser.getEmail().equals("av.avtargill@gmail.com")){
+                        Intent i = new Intent(Login.this,AdminHomePage.class);
+                        startActivity(i);
+                    }
+                    else{
+                        Intent i = new Intent(Login.this,UserHomePage.class);
+                        startActivity(i);
+                    }
                 }
                 else {
                     Toast.makeText(Login.this, "Please Login ", Toast.LENGTH_SHORT).show();
@@ -75,8 +83,7 @@ public class Login extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String email = emailEt.getText().toString();
-                final String password = passwordEt.getText().toString();
+
                 if (email.isEmpty()) {
                         emailEt.setError("Please enter email id");
                         emailEt.requestFocus();
