@@ -12,11 +12,16 @@
 
         android:id="@+id/recyclerview"
         android:layout_width="409dp"
-        android:layout_height="729dp"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp"
+        android:layout_height="674dp"
         tools:ignore="MissingConstraints"
-        />
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="1dp" />
 
+       <Button
+           android:id="@+id/btnLogout"
+           android:text="Logout"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           />
 
 </LinearLayout>

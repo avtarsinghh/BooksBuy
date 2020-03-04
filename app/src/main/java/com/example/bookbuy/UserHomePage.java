@@ -5,8 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,18 +26,25 @@ public class UserHomePage extends AppCompatActivity {
 
     RecyclerView recyclerView;
     FirebaseFirestore firestore;
+    Button btnlogout;
+
+    @SuppressLint("WrongViewCast")
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_home_page);
+        setContentView(R.layout.activity_user_home_page);
+
         recyclerView = findViewById(R.id.recyclerView);
         firestore = FirebaseFirestore.getInstance();
+        btnlogout=findViewById(R.id.btnLogout);
 
         firestore.collection("books").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 ArrayList<Books> books = new ArrayList<>();
                 for(QueryDocumentSnapshot snapshot : task.getResult()){
+
                     Books book = new Books();
                     book.setId(snapshot.getId());
                     book.setTitle(""+snapshot.getData().get("title"));
@@ -44,15 +56,22 @@ public class UserHomePage extends AppCompatActivity {
                     book.setDescription(""+snapshot.getData().get("description"));
                     book.setAuthor(""+snapshot.getData().get("author"));
                     book.setImage(""+snapshot.getData().get("linkToImage"));
-                    books.add(book);
                 }
-                BooksAdapter booksAdapter = new BooksAdapter(
-                        getApplicationContext(), books
+                BooksAdapter booksAdapter = new BooksAdapter(getApplicationContext(), books
                 );
                 recyclerView.setAdapter(booksAdapter);
                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
                 recyclerView.setLayoutManager(layoutManager);
             }
         });
-    }
+
+        btnlogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent=new Intent(UserHomePage.this,Login.class);
+                startActivity(intent);
+            }
+        });
+  }
 }

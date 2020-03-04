@@ -14,7 +14,7 @@
         <activity android:name=".AdminHomePage"
             android:exported="true"/>
 
-        <activity android:name=".UserHomePage" />
+        <activity android:name=".UserHomePage"/>
         <activity android:name=".SignUp" />
         <activity android:name=".Login" />
         <activity android:name=".Splash">

@@ -84,7 +84,7 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (email.isEmpty()) {
+                if (email.equals("")) {
                         emailEt.setError("Please enter email id");
                         emailEt.requestFocus();
                     } else if (password.isEmpty()) {

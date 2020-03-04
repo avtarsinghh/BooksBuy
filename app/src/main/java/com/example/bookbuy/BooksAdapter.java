@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,6 +42,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> 
         viewHolder.languageB.setText(books.get(position).getLanguage());
         viewHolder.editionB.setText(books.get(position).getEdition());
         Picasso.get().load(books.get(position).getImage()).into(viewHolder.imgBook);
+
     }
 
     @Override
@@ -50,8 +52,8 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imgBook;
-        TextView titleB, authorB, publisherB, languageB, editionB, ratingB, yopB;
-        Button modifyBtn;
+        TextView titleB, authorB, publisherB, languageB, editionB;
+        Button btnbuy;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imgBook = itemView.findViewById(R.id.bookimage);
