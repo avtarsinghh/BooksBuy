@@ -12,17 +12,21 @@
         <activity android:name=".UserBookBuy"></activity>
         <activity android:name=".AdminAddModifyBook" />
         <activity android:name=".AdminHomePage"
-            android:exported="true"/>
+            android:exported="true">
 
-        <activity android:name=".UserHomePage"/>
-        <activity android:name=".SignUp" />
-        <activity android:name=".Login" />
-        <activity android:name=".Splash">
+        </activity>
+
+        <activity android:name=".UserHomePage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".SignUp" />
+        <activity android:name=".Login" />
+        <activity android:name=".Splash">
+
         </activity>
     </application>
 

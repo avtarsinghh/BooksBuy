@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
@@ -17,50 +18,53 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> {
-    LayoutInflater layoutInflater;
-    Context context;
-    ArrayList<Books> books;
+    LayoutInflater layoutInflateruh;
+    Context contextuh;
+    ArrayList<Books> booksuh;
 
-    public BooksAdapter(Context context, ArrayList<Books> books) {
-        layoutInflater = LayoutInflater.from(context);
-        this.context = context;
-        this.books = books;
+    public BooksAdapter(Context contextuh, ArrayList<Books> books) {
+        layoutInflateruh = LayoutInflater.from(contextuh);
+        this.contextuh = contextuh;
+        this.booksuh = books;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = layoutInflater.inflate(R.layout.userhomepagecardview, parent, false);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+        View view = layoutInflateruh.inflate(R.layout.userhomepagecardview, viewGroup, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        viewHolder.titleB.setText(books.get(position).getTitle());
-        viewHolder.authorB.setText(books.get(position).getAuthor());
-        viewHolder.publisherB.setText(books.get(position).getPublisher());
-        viewHolder.languageB.setText(books.get(position).getLanguage());
-        viewHolder.editionB.setText(books.get(position).getEdition());
-        Picasso.get().load(books.get(position).getImage()).into(viewHolder.imgBook);
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position)
+    {
+        viewHolder.titleB.setText(booksuh.get(position).getTitle());
+        viewHolder.authorB.setText(booksuh.get(position).getAuthor());
+        viewHolder.publisherB.setText(booksuh.get(position).getPublisher());
+        viewHolder.editionB.setText(booksuh.get(position).getEdition());
+        Picasso.get().load(booksuh.get(position).getImage()).into(viewHolder.imgBook);
 
     }
 
     @Override
     public int getItemCount() {
-        return books.size();
+        return booksuh.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imgBook;
-        TextView titleB, authorB, publisherB, languageB, editionB;
+        CardView cardViewUH;
+        TextView titleB, authorB, publisherB,  editionB;
         Button btnbuy;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            cardViewUH=itemView.findViewById(R.id.usercv);
             imgBook = itemView.findViewById(R.id.bookimage);
             titleB = itemView.findViewById(R.id.txtbooktitle);
             authorB = itemView.findViewById(R.id.txtbookauthor);
             publisherB = itemView.findViewById(R.id.txtbookpublisher);
             editionB = itemView.findViewById(R.id.txtbookedition);
+            btnbuy=itemView.findViewById(R.id.btnBuy);
         }
     }
 }

@@ -24,22 +24,22 @@ import java.util.ArrayList;
 
 public class UserHomePage extends AppCompatActivity {
 
-    RecyclerView recyclerView;
-    FirebaseFirestore firestore;
+    RecyclerView recyclerViewUh;
+    FirebaseFirestore firestoreuh;
     Button btnlogout;
 
-    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_home_page);
 
-        recyclerView = findViewById(R.id.recyclerView);
-        firestore = FirebaseFirestore.getInstance();
+        recyclerViewUh = findViewById(R.id.recyclerviewUh);
+        firestoreuh = FirebaseFirestore.getInstance();
+
         btnlogout=findViewById(R.id.btnLogout);
 
-        firestore.collection("books").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        firestoreuh.collection("books").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 ArrayList<Books> books = new ArrayList<>();
@@ -56,12 +56,13 @@ public class UserHomePage extends AppCompatActivity {
                     book.setDescription(""+snapshot.getData().get("description"));
                     book.setAuthor(""+snapshot.getData().get("author"));
                     book.setImage(""+snapshot.getData().get("linkToImage"));
+                    books.add(book);
                 }
                 BooksAdapter booksAdapter = new BooksAdapter(getApplicationContext(), books
                 );
-                recyclerView.setAdapter(booksAdapter);
+                recyclerViewUh.setAdapter( booksAdapter);
                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-                recyclerView.setLayoutManager(layoutManager);
+                recyclerViewUh.setLayoutManager(layoutManager);
             }
         });
 

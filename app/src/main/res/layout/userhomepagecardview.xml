@@ -26,7 +26,8 @@
                 android:layout_height="240dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginRight="16dp" />
+                android:layout_marginRight="16dp"
+                android:background="@mipmap/ic_launcher"/>
 
             <TextView
                 android:id="@+id/booktitleT"
