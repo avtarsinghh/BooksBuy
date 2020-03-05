@@ -51,7 +51,7 @@ public class UserHomePage extends AppCompatActivity {
                     book.setYop(""+snapshot.getData().get("yop"));
                     book.setDescription(""+snapshot.getData().get("description"));
                     book.setAuthor(""+snapshot.getData().get("author"));
-                    book.setImage(""+snapshot.getData().get("linkToImage"));
+                    book.setImage(""+snapshot.getData().get("image"));
                     books.add(book);
                 }
                 BooksAdapter booksAdapter = new BooksAdapter(getApplicationContext(), books

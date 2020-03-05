@@ -41,7 +41,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> 
         viewHolder.authorB.setText( books.get(position).getAuthor());
         viewHolder.publisherB.setText( books.get(position).getPublisher());
         viewHolder.editionB.setText( books.get(position).getEdition());
-        Picasso.get().load( books.get(position).getImage()).into(viewHolder.imgBook);
+        Picasso.get().load( books.get(position).getImage()).fit().into(viewHolder.imgBook);
 
 
     }
