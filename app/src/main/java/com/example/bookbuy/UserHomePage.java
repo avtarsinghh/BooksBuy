@@ -5,14 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -34,10 +30,10 @@ public class UserHomePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_home_page);
 
-        recyclerViewUh = findViewById(R.id.recyclerviewUh);
+        recyclerViewUh = findViewById(R.id.recyclerview );
         firestoreuh = FirebaseFirestore.getInstance();
 
-        btnlogout=findViewById(R.id.btnLogout);
+       btnlogout=findViewById(R.id.btnLogout);
 
         firestoreuh.collection("books").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override

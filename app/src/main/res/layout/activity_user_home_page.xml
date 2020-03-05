@@ -9,19 +9,25 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="247dp"
+        android:layout_weight="8.5">
 
-        android:id="@+id/recyclerviewUh"
-        android:layout_width="409dp"
-        android:layout_height="674dp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp" />
+    </androidx.recyclerview.widget.RecyclerView>
+    <RelativeLayout
+        android:layout_weight="1.5"
+        android:layout_width="match_parent"
+        android:layout_height="2.5dp"
+        android:layout_marginRight="10dp">
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_alignParentBottom="true"
+            android:text="Logout">
 
-       <Button
-           android:id="@+id/btnLogout"
-           android:text="Logout"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           />
+        </Button>
+    </RelativeLayout>
 
 </LinearLayout>

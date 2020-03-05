@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="#EEEEEE"
     >
@@ -17,7 +16,7 @@
         <RelativeLayout
             android:id="@+id/relativeLayoutUS"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:padding="16dp">
 
             <ImageView
@@ -29,50 +28,13 @@
                 android:layout_marginRight="16dp"
                 android:background="@mipmap/ic_launcher"/>
 
-            <TextView
-                android:id="@+id/booktitleT"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_toRightOf="@id/bookimage"
-                android:text="Title"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/bookaurthorT"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/booktitleT"
-                android:layout_toRightOf="@+id/bookimage"
-                android:text="Author"
-                android:textSize="20sp"
-
-                />
-
-            <TextView
-                android:id="@+id/bookpublisherT"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/bookaurthorT"
-                android:layout_toRightOf="@id/bookimage"
-                android:text="Publisher"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/bookeditionT"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/bookpublisherT"
-                android:layout_toRightOf="@id/bookimage"
-                android:text="Edition"
-                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/txtbooktitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_toRightOf="@id/booktitleT"
+                android:layout_toRightOf="@id/bookimage"
                 android:textSize="30sp" />
 
             <TextView
@@ -80,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txtbooktitle"
-                android:layout_toRightOf="@+id/bookaurthorT"
+                android:layout_toRightOf="@+id/bookimage"
                 android:textSize="20sp" />
 
             <TextView
@@ -88,7 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txtbookauthor"
-                android:layout_toRightOf="@id/bookpublisherT"
+                android:layout_toRightOf="@id/bookimage"
                 android:textSize="20sp" />
 
             <TextView
@@ -96,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txtbookpublisher"
-                android:layout_toRightOf="@id/bookeditionT"
+                android:layout_toRightOf="@id/bookimage"
                 android:textSize="20sp" />
 
 
@@ -104,7 +66,7 @@
                 android:id="@+id/btnBuy"
                 android:layout_width="124dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/bookeditionT"
+                android:layout_below="@id/txtbookedition"
                 android:layout_toRightOf="@id/bookimage"
                 android:text="Buy" />
 
