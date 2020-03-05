@@ -16,7 +16,8 @@
 
         </activity>
 
-        <activity android:name=".UserHomePage">
+        <activity android:name=".UserHomePage"
+            android:exported="true">
 
         </activity>
         <activity android:name=".SignUp" />
