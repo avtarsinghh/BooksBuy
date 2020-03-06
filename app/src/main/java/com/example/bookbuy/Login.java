@@ -48,7 +48,8 @@ public class Login extends AppCompatActivity {
         login = findViewById(R.id.login);
         signUp = findViewById(R.id.signUp);
         db = FirebaseFirestore.getInstance();
-
+        final String email = emailEt.getText().toString();
+        final String password = passwordEt.getText().toString();
 
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,8 +84,6 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                final String email = emailEt.getText().toString();
-                final String password = passwordEt.getText().toString();
                 if (email.equals("")) {
                         emailEt.setError("Please enter email id");
                         emailEt.requestFocus();
