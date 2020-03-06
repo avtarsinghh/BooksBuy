@@ -32,7 +32,6 @@
 
             <TextView
                 android:id="@+id/title"
-                android:tooltipText="Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
@@ -43,7 +42,6 @@
 
             <TextView
                 android:id="@+id/author"
-                android:tooltipText="Author"
                 android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -55,7 +53,6 @@
 
             <TextView
                 android:id="@+id/publisher"
-                android:tooltipText="Publisher"
                 android:text="Publisher"
                 android:textSize="20sp"
                 android:layout_width="wrap_content"
@@ -68,7 +65,6 @@
 
             <TextView
                 android:id="@+id/language"
-                android:tooltipText="Language"
                 android:layout_toRightOf="@id/imageView"
                 android:layout_below="@id/publisher"
                 android:layout_width="wrap_content"
@@ -79,7 +75,6 @@
 
             <TextView
                 android:id="@+id/edition"
-                android:tooltipText="Edition"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Edition"
@@ -90,7 +85,6 @@
 
             <TextView
                 android:id="@+id/rating"
-                android:tooltipText="Rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Rating"
@@ -102,7 +96,6 @@
 
             <TextView
                 android:id="@+id/yearOfPublish"
-                android:tooltipText="Year Of Publish"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="YOP"
@@ -123,7 +116,6 @@
 
             <ImageView
                 android:id="@+id/deleteIV"
-                android:tooltipText="Delete this Movie"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@android:drawable/ic_delete"
