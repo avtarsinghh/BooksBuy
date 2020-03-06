@@ -7,27 +7,20 @@
     android:orientation="vertical"
     tools:context=".UserHomePage">
 
+    <Toolbar
+        android:id="@+id/menuToolbar"
+        android:background="@color/colorPrimaryDark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="247dp"
-        android:layout_weight="8.5">
+        android:layout_height="match_parent">
 
     </androidx.recyclerview.widget.RecyclerView>
-    <RelativeLayout
-        android:layout_weight="1.5"
-        android:layout_width="match_parent"
-        android:layout_height="2.5dp"
-        android:layout_marginRight="10dp">
-        <Button
-            android:id="@+id/btnLogout"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:layout_alignParentBottom="true"
-            android:text="Logout">
 
-        </Button>
-    </RelativeLayout>
 
 </LinearLayout>

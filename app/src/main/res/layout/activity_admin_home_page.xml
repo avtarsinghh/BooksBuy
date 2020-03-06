@@ -13,10 +13,13 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingButtonAdmin"
+        android:backgroundTint="#dddddd"
+        android:tooltipText="Add Book"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:src="@drawable/round_library_add_black_48"
         app:layout_constraintBottom_toBottomOf="@+id/recyclerView"
         app:layout_constraintStart_toStartOf="@+id/recyclerView" />
+    <include layout="@layout/progress_bar"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
