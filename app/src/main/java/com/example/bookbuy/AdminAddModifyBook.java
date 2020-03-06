@@ -45,10 +45,10 @@ public class AdminAddModifyBook extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 getEditTextData();
-                firestore.collection("books").document(books.getId()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                firestore.collection("books").document(books.getId()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
-                    public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                        if(documentSnapshot.exists()){
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if(task.getResult().exists() && mode.equalsIgnoreCase("a")){
                             Toast.makeText(AdminAddModifyBook.this, "This Id for book already exists", Toast.LENGTH_LONG).show();
                         }
                         else{

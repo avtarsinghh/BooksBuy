@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -29,6 +30,7 @@ public class AdminHomePage extends AppCompatActivity {
     FirebaseFirestore firestore;
     FloatingActionButton actionButton;
     FirebaseAuth firebaseAuth;
+    LinearLayout linearLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +39,7 @@ public class AdminHomePage extends AppCompatActivity {
         actionButton = findViewById(R.id.floatingButtonAdmin);
         firebaseAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
+        linearLayout = findViewById(R.id.linearLayout);
 
 
 
@@ -59,7 +62,7 @@ public class AdminHomePage extends AppCompatActivity {
                     books.add(book);
                 }
                 RecyclerViewAdapterAdminHome adapterAdminHome = new RecyclerViewAdapterAdminHome(
-                        getApplicationContext(), books
+                        AdminHomePage.this, books, linearLayout
                 );
                 recyclerView.setAdapter(adapterAdminHome);
                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
@@ -93,4 +96,5 @@ public class AdminHomePage extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }
