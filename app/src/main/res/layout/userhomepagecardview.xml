@@ -63,12 +63,12 @@
 
 
             <Button
-                android:id="@+id/btnBuy"
+                android:id="@+id/btnDescription"
                 android:layout_width="124dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txtbookedition"
                 android:layout_toRightOf="@id/bookimage"
-                android:text="Buy" />
+                android:text="Description" />
 
         </RelativeLayout>
 

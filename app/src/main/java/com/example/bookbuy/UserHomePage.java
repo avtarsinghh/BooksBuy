@@ -63,8 +63,7 @@ public class UserHomePage extends AppCompatActivity {
                     book.setImage(""+snapshot.getData().get("image"));
                     books.add(book);
                 }
-                BooksAdapter booksAdapter = new BooksAdapter(getApplicationContext(), books
-                );
+                BooksAdapter booksAdapter = new BooksAdapter(getApplicationContext(), books);
                 recyclerViewUh.setAdapter( booksAdapter);
                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
                 recyclerViewUh.setLayoutManager(layoutManager);
