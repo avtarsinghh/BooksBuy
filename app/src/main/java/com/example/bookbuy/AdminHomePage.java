@@ -41,8 +41,7 @@ public class AdminHomePage extends AppCompatActivity {
         firestore = FirebaseFirestore.getInstance();
         linearLayout = findViewById(R.id.linearLayout);
 
-
-
+        linearLayout.setVisibility(View.VISIBLE);
         firestore.collection("books").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -67,6 +66,7 @@ public class AdminHomePage extends AppCompatActivity {
                 recyclerView.setAdapter(adapterAdminHome);
                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
                 recyclerView.setLayoutManager(layoutManager);
+                linearLayout.setVisibility(View.GONE);
             }
         });
 

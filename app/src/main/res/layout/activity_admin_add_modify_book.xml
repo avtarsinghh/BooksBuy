@@ -1,80 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="10dp"
-    android:background="@color/background"
-    android:orientation="vertical"
-    tools:context=".AdminAddModifyBook">
+    android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/etID"
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Id" />
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:background="@color/background"
+        android:orientation="vertical"
+        tools:context=".AdminAddModifyBook">
 
-    <EditText
-        android:id="@+id/etTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Title" />
+        <EditText
+            android:id="@+id/etID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Id" />
 
-    <EditText
-        android:id="@+id/etAuthor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Author" />
+        <EditText
+            android:id="@+id/etTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Title" />
 
-    <EditText
-        android:id="@+id/etPublisher"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Publisher" />
+        <EditText
+            android:id="@+id/etAuthor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Author" />
 
-    <EditText
-        android:id="@+id/etLanguage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Language" />
+        <EditText
+            android:id="@+id/etPublisher"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Publisher" />
 
-
-    <EditText
-        android:id="@+id/etEdition"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Edition" />
-
-    <EditText
-        android:id="@+id/etRating"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Rating" />
-
-    <EditText
-        android:id="@+id/etYOP"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Year of Publication" />
-
-    <EditText
-        android:id="@+id/etDescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Description" />
+        <EditText
+            android:id="@+id/etLanguage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Language" />
 
 
-    <EditText
-        android:id="@+id/etLinkToImage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Link To Image" />
+        <EditText
+            android:id="@+id/etEdition"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Edition" />
 
-    <Button
-        android:id="@+id/btnAddModify"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Add" />
+        <EditText
+            android:id="@+id/etRating"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Rating" />
 
-</LinearLayout>
+        <EditText
+            android:id="@+id/etYOP"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Year of Publication" />
+
+        <EditText
+            android:id="@+id/etDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Description" />
+
+
+        <EditText
+            android:id="@+id/etLinkToImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Link To Image" />
+
+        <Button
+            android:id="@+id/btnAddModify"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add" />
+        <include layout="@layout/progress_bar" />
+    </LinearLayout>
+</ScrollView>

@@ -10,6 +10,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,6 +31,7 @@ public class AdminAddModifyBook extends AppCompatActivity {
     EditText idET, titleET, authorET, publisherET, languageET, editionET, ratingET, yopET, descriptionET, linkImageET;
     FirebaseFirestore firestore;
 
+    LinearLayout linearLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,9 +55,11 @@ public class AdminAddModifyBook extends AppCompatActivity {
                         }
                         else{
                             if (verifyData()) {
+                                linearLayout.setVisibility(View.VISIBLE);
                                 firestore.collection("books").document(books.getId()).set(books).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
+                                        linearLayout.setVisibility(View.GONE);
                                         Intent intent = new Intent(getApplicationContext(), AdminHomePage.class);
                                         startActivity(intent);
                                         finishAffinity();
@@ -163,5 +167,6 @@ public class AdminAddModifyBook extends AppCompatActivity {
         descriptionET = findViewById(R.id.etDescription);
         linkImageET = findViewById(R.id.etLinkToImage);
         addModifyBtn = findViewById(R.id.btnAddModify);
+        linearLayout = findViewById(R.id.linearLayout);
     }
 }
