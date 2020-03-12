@@ -11,9 +11,8 @@
         android:id="@+id/txtView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Id"
         android:layout_marginVertical="12dp"
-        />
+        android:text="Id" />
     <EditText
         android:id="@+id/edt1"
         android:layout_width="match_parent"

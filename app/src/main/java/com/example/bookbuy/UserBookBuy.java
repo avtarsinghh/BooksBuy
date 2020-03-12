@@ -2,6 +2,7 @@ package com.example.bookbuy;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.view.View;
@@ -11,10 +12,16 @@ import android.widget.EditText;
 public class UserBookBuy extends AppCompatActivity {
     EditText edId, edTitle, edAuthor, edPublisher, edLanguage, edEdition, edRating, edYOP, eddescription;
     Button btnPurchase;
+
+    Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_book_buy);
+
+        intent=getIntent();
+
         edId = (EditText)findViewById(R.id.edt1);
         edTitle = (EditText)findViewById(R.id.edt2);
         edAuthor = (EditText)findViewById(R.id.edt3);
@@ -26,9 +33,14 @@ public class UserBookBuy extends AppCompatActivity {
         eddescription = (EditText)findViewById(R.id.edt9);
         btnPurchase = (Button)findViewById(R.id.btnClick);
 
+        String eTitle = getIntent().getStringExtra("title");
+
+        edTitle.setText( eTitle );
+
         btnPurchase.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
 
             }
         });
