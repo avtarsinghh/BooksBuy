@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -25,11 +26,15 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
 public class AdminHomePage extends AppCompatActivity {
     RecyclerView recyclerView;
-    FirebaseFirestore firestore;
     FloatingActionButton actionButton;
-    FirebaseAuth firebaseAuth;
+    Retrofit retrofit;
     LinearLayout linearLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,17 +42,41 @@ public class AdminHomePage extends AppCompatActivity {
         setContentView(R.layout.activity_admin_home_page);
         recyclerView = findViewById(R.id.recyclerView);
         actionButton = findViewById(R.id.floatingButtonAdmin);
-        firebaseAuth = FirebaseAuth.getInstance();
-        firestore = FirebaseFirestore.getInstance();
-        linearLayout = findViewById(R.id.linearLayout);
 
+        linearLayout = findViewById(R.id.linearLayout);
         linearLayout.setVisibility(View.VISIBLE);
-        firestore.collection("books").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        retrofit = RetrofitInstance.getRetrofitInstance();
+        DataService dataService = retrofit.create(DataService.class);
+        Call<ArrayList<Book>> call = dataService.getBooks();
+        call.enqueue(new Callback<ArrayList<Book>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Book>> call, Response<ArrayList<Book>> response) {
+                ArrayList<Book>  books = new ArrayList<>();
+                Log.i("body", ""+response.body());
+                for(Book book : response.body()){
+                    books.add(book);
+                }
+                RecyclerViewAdapterAdminHome adapterAdminHome = new RecyclerViewAdapterAdminHome(
+                        AdminHomePage.this, books, linearLayout
+                );
+                recyclerView.setAdapter(adapterAdminHome);
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+                recyclerView.setLayoutManager(layoutManager);
+                linearLayout.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Book>> call, Throwable t) {
+                linearLayout.setVisibility(View.GONE);
+                Log.i("body", t.getMessage());
+            }
+        });
+        /*firestore.collection("books").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                ArrayList<Books>  books = new ArrayList<>();
+                ArrayList<Book>  books = new ArrayList<>();
                 for(QueryDocumentSnapshot snapshot : task.getResult()){
-                    Books book = new Books();
+                    Book book = new Book();
                     book.setId(snapshot.getId());
                     book.setTitle(""+snapshot.getData().get("title"));
                     book.setPublisher(""+snapshot.getData().get("publisher"));
@@ -68,7 +97,7 @@ public class AdminHomePage extends AppCompatActivity {
                 recyclerView.setLayoutManager(layoutManager);
                 linearLayout.setVisibility(View.GONE);
             }
-        });
+        });*/
 
         actionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,9 +119,10 @@ public class AdminHomePage extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
-            case R.id.logOut : firebaseAuth.signOut();
+            case R.id.logOut : /*firebaseAuth.signOut();*/
             Intent intent = new Intent(getApplicationContext(), Login.class);
             startActivity(intent);
+            finishAffinity();
         }
         return super.onOptionsItemSelected(item);
     }

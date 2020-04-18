@@ -1,11 +1,11 @@
 package com.example.bookbuy;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -15,30 +15,34 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
-import java.util.regex.Matcher;
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class AdminAddModifyBook extends AppCompatActivity {
     Intent intent;
     String mode;
     Button addModifyBtn;
-    Books books;
+    Book book;
+    Retrofit retrofit;
     EditText idET, titleET, authorET, publisherET, languageET, editionET, ratingET, yopET, descriptionET, linkImageET;
     FirebaseFirestore firestore;
-
     LinearLayout linearLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_add_modify_book);
         getIds();
-
-        firestore = FirebaseFirestore.getInstance();
+        retrofit = RetrofitInstance.getRetrofitInstance();
+        DataService dataService = retrofit.create(DataService.class);
 
         intent = getIntent();
         mode = intent.getStringExtra("mode");
@@ -47,7 +51,44 @@ public class AdminAddModifyBook extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 getEditTextData();
-                firestore.collection("books").document(books.getId()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                Call<String> call1 = dataService.addModifyBook(book);
+                Call<String> callCheck = dataService.getBook(book);
+
+                callCheck.enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        Log.i("response", ""+ response.body());
+                        if (response.body().equalsIgnoreCase("Exist") && mode.equalsIgnoreCase("a")){
+                            Toast.makeText(AdminAddModifyBook.this, "This Id for book already exists", Toast.LENGTH_LONG).show();
+                        }
+                        else {
+                            if (verifyData()) {
+                                linearLayout.setVisibility(View.VISIBLE);
+                                call1.enqueue(new Callback<String>() {
+                                    @Override
+                                    public void onResponse(Call<String> call, Response<String> response) {
+                                        linearLayout.setVisibility(View.GONE);
+                                        Toast.makeText(AdminAddModifyBook.this, "Successful", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(getApplicationContext(), AdminHomePage.class);
+                                        startActivity(intent);
+                                        finishAffinity();
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<String> call, Throwable t) {
+                                        Toast.makeText(AdminAddModifyBook.this, "Failed!!!", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        Toast.makeText(AdminAddModifyBook.this, "Failed!!!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                /*firestore.collection("books").document(book.getId()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if(task.getResult().exists() && mode.equalsIgnoreCase("a")){
@@ -56,7 +97,7 @@ public class AdminAddModifyBook extends AppCompatActivity {
                         else{
                             if (verifyData()) {
                                 linearLayout.setVisibility(View.VISIBLE);
-                                firestore.collection("books").document(books.getId()).set(books).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                firestore.collection("books").document(book.getId()).set(book).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         linearLayout.setVisibility(View.GONE);
@@ -68,54 +109,54 @@ public class AdminAddModifyBook extends AppCompatActivity {
                             }
                         }
                     }
-                });
+                });*/
 
             }
         });
     }
 
     private boolean verifyData() {
-        if (books.getId() == null || books.getId().equalsIgnoreCase("")) {
+        if (book.getId() == null || book.getId().equalsIgnoreCase("")) {
             idET.setError("Please Enter Id");
             return false;
         }
-        if (books.getTitle() == null || books.getTitle().equalsIgnoreCase("")) {
+        if (book.getTitle() == null || book.getTitle().equalsIgnoreCase("")) {
             titleET.setError("Please Enter Title");
             return false;
         }
-        if (books.getAuthor() == null || books.getAuthor().equalsIgnoreCase("")) {
+        if (book.getAuthor() == null || book.getAuthor().equalsIgnoreCase("")) {
             authorET.setError("Please Enter Author");
             return false;
         }
-        if (books.getPublisher() == null || books.getPublisher().equalsIgnoreCase("")) {
+        if (book.getPublisher() == null || book.getPublisher().equalsIgnoreCase("")) {
             publisherET.setError("Please Enter Books");
             return false;
         }
-        if (books.getLanguage() == null || books.getLanguage().equalsIgnoreCase("")) {
+        if (book.getLanguage() == null || book.getLanguage().equalsIgnoreCase("")) {
             languageET.setError("Please Enter Language");
             return false;
         }
-        if (books.getEdition() == null || books.getEdition().equalsIgnoreCase("")) {
+        if (book.getEdition() == null || book.getEdition().equalsIgnoreCase("")) {
             editionET.setError("Please Enter Edition");
             return false;
         }
-        if (books.getRating() == null || books.getRating().equalsIgnoreCase("")) {
+        if (book.getRating() == null || book.getRating().equalsIgnoreCase("")) {
             ratingET.setError("Please Enter Rating");
             return false;
         }
-        if (books.getYop() == null || books.getYop().equalsIgnoreCase("")) {
+        if (book.getYop() == null || book.getYop().equalsIgnoreCase("")) {
             yopET.setError("Please Enter Year Of Publish");
             return false;
         }
-        if (books.getDescription() == null || books.getDescription().equalsIgnoreCase("")) {
+        if (book.getDescription() == null || book.getDescription().equalsIgnoreCase("")) {
             descriptionET.setError("Please Enter Description");
             return false;
         }
-        if (books.getImage() == null || books.getImage().equalsIgnoreCase("") ) {
+        if (book.getImage() == null || book.getImage().equalsIgnoreCase("") ) {
             linkImageET.setError("Please Enter Image URL");
             return false;
         }
-        if(!Patterns.WEB_URL.matcher(books.getImage()).matches()){
+        if(!Patterns.WEB_URL.matcher(book.getImage()).matches()){
             linkImageET.setError("Malformed URL to image");
             return false;
         }
@@ -123,17 +164,17 @@ public class AdminAddModifyBook extends AppCompatActivity {
     }
 
     private void getEditTextData() {
-        books = new Books();
-        books.setId(idET.getText().toString());
-        books.setTitle(titleET.getText().toString());
-        books.setAuthor(authorET.getText().toString());
-        books.setPublisher(publisherET.getText().toString());
-        books.setLanguage(languageET.getText().toString());
-        books.setEdition(editionET.getText().toString());
-        books.setRating(ratingET.getText().toString());
-        books.setYop(yopET.getText().toString());
-        books.setDescription(descriptionET.getText().toString());
-        books.setImage(linkImageET.getText().toString());
+        book = new Book();
+        book.setId(idET.getText().toString());
+        book.setTitle(titleET.getText().toString());
+        book.setAuthor(authorET.getText().toString());
+        book.setPublisher(publisherET.getText().toString());
+        book.setLanguage(languageET.getText().toString());
+        book.setEdition(editionET.getText().toString());
+        book.setRating(ratingET.getText().toString());
+        book.setYop(yopET.getText().toString());
+        book.setDescription(descriptionET.getText().toString());
+        book.setImage(linkImageET.getText().toString());
     }
 
     private void findAddOrModify() {

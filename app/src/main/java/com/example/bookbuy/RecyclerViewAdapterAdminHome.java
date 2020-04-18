@@ -26,13 +26,18 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
 public class RecyclerViewAdapterAdminHome extends RecyclerView.Adapter<RecyclerViewAdapterAdminHome.ViewHolder> {
     LayoutInflater layoutInflater;
     LinearLayout linearLayout;
     Context context;
-    ArrayList<Books> books;
+    ArrayList<Book> books;
 
-    public RecyclerViewAdapterAdminHome(Context context, ArrayList<Books> books, LinearLayout linearLayout) {
+    public RecyclerViewAdapterAdminHome(Context context, ArrayList<Book> books, LinearLayout linearLayout) {
         layoutInflater = LayoutInflater.from(context);
         this.context = context;
         this.books = books;
@@ -85,7 +90,27 @@ public class RecyclerViewAdapterAdminHome extends RecyclerView.Adapter<RecyclerV
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         linearLayout.setVisibility(View.VISIBLE);
-                        db.collection("books").document(books.get(position).getId())
+                        Retrofit retrofit = RetrofitInstance.getRetrofitInstance();
+                        DataService dataService = retrofit.create(DataService.class);
+                        Call<String> call = dataService.deleteBook(books.get(position));
+                        call.enqueue(new Callback<String>() {
+                            @Override
+                            public void onResponse(Call<String> call, Response<String> response) {
+                                Intent intent = new Intent(context, AdminHomePage.class);
+                                context.startActivity(intent);
+                                Toast.makeText(context, "Successful", Toast.LENGTH_SHORT).show();
+                                ((Activity)context).finish();
+                                linearLayout.setVisibility(View.GONE);
+                            }
+
+                            @Override
+                            public void onFailure(Call<String> call, Throwable t) {
+                                Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+
+                        /*db.collection("books").document(books.get(position).getId())
                                 .delete()
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
@@ -102,7 +127,7 @@ public class RecyclerViewAdapterAdminHome extends RecyclerView.Adapter<RecyclerV
                                         linearLayout.setVisibility(View.GONE);
                                         Toast.makeText(context, "Failed to delete book!!!", Toast.LENGTH_SHORT).show();
                                     }
-                                });
+                                });*/
                     }
                 }).setNegativeButton("No", null).show();
             }

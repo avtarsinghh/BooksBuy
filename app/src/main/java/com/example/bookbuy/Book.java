@@ -1,6 +1,6 @@
 package com.example.bookbuy;
 
-public class Books
+public class Book
 {
     private String id,title,author,publisher,language,edition,rating,yop,description;
     private String image;

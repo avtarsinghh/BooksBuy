@@ -7,13 +7,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -47,10 +44,10 @@ public class UserHomePage extends AppCompatActivity {
         firestoreuh.collection("books").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                ArrayList<Books> books = new ArrayList<>();
+                ArrayList<Book> books = new ArrayList<>();
                 for(QueryDocumentSnapshot snapshot : task.getResult()){
 
-                    Books book = new Books();
+                    Book book = new Book();
                     book.setId(snapshot.getId());
                     book.setTitle(""+snapshot.getData().get("title"));
                     book.setPublisher(""+snapshot.getData().get("publisher"));
