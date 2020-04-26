@@ -40,8 +40,6 @@ public class Login extends AppCompatActivity {
     EditText emailEt,passwordEt;
     Button login;
     TextView signUp;
-    String mode;
-    Intent intent;
     Retrofit retrofit;
     User user;
     //private FirebaseAuth mFirebaseAuth;
@@ -55,8 +53,7 @@ public class Login extends AppCompatActivity {
         retrofit = RetrofitInstance.getRetrofitInstance();
         DataService dataService = retrofit.create(DataService.class);
 
-        intent = getIntent();
-        mode = intent.getStringExtra("mode");
+        user = new User();
         //mFirebaseAuth = FirebaseAuth.getInstance();
         emailEt = findViewById(R.id.email);
         passwordEt = findViewById(R.id.password);
@@ -100,6 +97,8 @@ public class Login extends AppCompatActivity {
 
                 final String email = emailEt.getText().toString();
                 final String password = passwordEt.getText().toString();
+                user.setPassword(password);
+                user.setEmail(email);
                 if (email.equals("")) {
                         emailEt.setError("Please enter email id");
                         emailEt.requestFocus();
@@ -114,8 +113,18 @@ public class Login extends AppCompatActivity {
                                 @Override
                                 public void onResponse(Call<String> call, Response<String> response) {
                                     Log.i("response", "" + response.body());
-                                    if (response.body().equalsIgnoreCase("Exist") && mode.equalsIgnoreCase("a")) {
+                                    if (response.body().equalsIgnoreCase("Valid user")) {
                                         Toast.makeText(Login.this, " Login Successful ", Toast.LENGTH_LONG).show();
+                                        Intent intent;
+                                        if(email.equalsIgnoreCase("avi.avtargill@gmail.com")){
+                                            intent = new Intent(getApplicationContext(), AdminHomePage.class);
+                                        }
+                                        else{
+                                            intent = new Intent(getApplicationContext(), UserHomePage.class);
+                                        }
+                                        startActivity(intent);
+                                        finishAffinity();
+                                        Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_SHORT).show();
                                     } else {
                                         Toast.makeText(Login.this, "Invalid Details", Toast.LENGTH_LONG).show();
                                     }

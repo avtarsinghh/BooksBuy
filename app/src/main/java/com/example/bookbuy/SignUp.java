@@ -50,7 +50,6 @@ public class SignUp extends AppCompatActivity {
     Retrofit retrofit;
     User user;
     Intent intent;
-    String mode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +61,9 @@ public class SignUp extends AppCompatActivity {
         passwordSignUp = findViewById(R.id.passwordSignUp);
         confirmPassword = findViewById(R.id.confirmPassword);
         submit = findViewById(R.id.submit);
-        mode = intent.getStringExtra("mode");
         retrofit = RetrofitInstance.getRetrofitInstance();
         DataService dataService = retrofit.create(DataService.class);
+        user = new User();
 
 
 
@@ -81,6 +80,9 @@ public class SignUp extends AppCompatActivity {
                 final String email = emailSignUp.getText().toString();
                 String password = passwordSignUp.getText().toString();
                 String confirmPswd = confirmPassword.getText().toString();
+                user.setEmail(email);
+                user.setName(name);
+                user.setPassword(password);
                 if (!password.equals(confirmPswd)) {
                     Toast.makeText(SignUp.this, "Password does not match", Toast.LENGTH_SHORT).show();
                 } else {
@@ -98,27 +100,18 @@ public class SignUp extends AppCompatActivity {
                     } else if (!(email.isEmpty() && password.isEmpty())) {
 
                         Call<String> call1 = dataService.createUser(user);
-                        Call<String> callCheck = dataService.userlogin(user);
-                        callCheck.enqueue(new Callback<String>() {
+                        call1.enqueue(new Callback<String>() {
                             @Override
                             public void onResponse(Call<String> call, Response<String> response) {
                                 Log.i("response", ""+ response.body());
-                                if (response.body().equalsIgnoreCase("Exist") && mode.equalsIgnoreCase("a")){
+                                if (response.body().equalsIgnoreCase("User exists !!")){
                                     Toast.makeText(SignUp.this, "This Email already exists", Toast.LENGTH_LONG).show();
                                 }
                                 else {
-                                        call1.enqueue(new Callback<String>() {
-                                            @Override
-                                            public void onResponse(Call<String> call, Response<String> response) {
-                                                Toast.makeText(SignUp.this, "Successful", Toast.LENGTH_SHORT).show();
-                                                Intent intent = new Intent(SignUp.this, UserHomePage.class);
-                                                startActivity(intent);
-                                            }
-                                            @Override
-                                            public void onFailure(Call<String> call, Throwable t) {
-                                                Toast.makeText(SignUp.this, "Failed!!!", Toast.LENGTH_SHORT).show();
-                                            }
-                                        });
+                                    Intent intent = new Intent(getApplicationContext(), Login.class);
+                                    startActivity(intent);
+                                    finishAffinity();
+                                    Toast.makeText(SignUp.this, "Successfully Registered", Toast.LENGTH_SHORT).show();
                                 }
                             }
 

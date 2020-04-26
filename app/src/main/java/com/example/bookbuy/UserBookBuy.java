@@ -17,7 +17,7 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 
 public class UserBookBuy extends AppCompatActivity {
-    TextView  edTitle, edAuthor, edPublisher, edLanguage, edEdition, edRating, edYOP, eddescription;
+    TextView edTitle, edAuthor, edPublisher, edLanguage, edEdition, edRating, edYOP, eddescription;
     ImageView imgBookBB;
     Button btnPurchase;
 
@@ -28,7 +28,7 @@ public class UserBookBuy extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_book_buy);
 
-        intent=getIntent();
+        intent = getIntent();
 
         edTitle = (TextView) findViewById(R.id.edtTitleBB);
         edAuthor = (TextView) findViewById(R.id.edtAuthorBB);
@@ -38,11 +38,11 @@ public class UserBookBuy extends AppCompatActivity {
         edRating = (TextView) findViewById(R.id.edtRatingBB);
         edYOP = (TextView) findViewById(R.id.edtYOPbb);
         eddescription = (TextView) findViewById(R.id.edtDescriptionBB);
-        imgBookBB=(ImageView)findViewById( R.id.imgImageBB );
+        imgBookBB = (ImageView) findViewById(R.id.imgImageBB);
 
-        btnPurchase = (Button)findViewById(R.id.btnClick);
+        btnPurchase = (Button) findViewById(R.id.btnClick);
 
-      /*  String strTitle = getIntent().getStringExtra("title");
+        String strTitle = getIntent().getStringExtra("title");
         String strAuthor = getIntent().getStringExtra("author");
         String strPublisher = getIntent().getStringExtra("publisher");
         String strLang = getIntent().getStringExtra("language");
@@ -53,33 +53,33 @@ public class UserBookBuy extends AppCompatActivity {
         String strImage = getIntent().getStringExtra("linkToImage");
 
 
-        edTitle.setText( strTitle );
-        edAuthor.setText( strAuthor );
-        edPublisher.setText( strPublisher );
-        edLanguage.setText( strLang );
-        edEdition.setText( strEdition );
-        edRating.setText( strRating );
-        edYOP.setText( strYOP );
-        eddescription.setText( strDescription );
+        edTitle.setText(strTitle);
+        edAuthor.setText(strAuthor);
+        edPublisher.setText(strPublisher);
+        edLanguage.setText(strLang);
+        edEdition.setText(strEdition);
+        edRating.setText(strRating);
+        edYOP.setText(strYOP);
+        eddescription.setText(strDescription);
 
         Picasso.get().load(strImage).into(imgBookBB);
 
-        btnPurchase.setOnClickListener( new View.OnClickListener() {
+        btnPurchase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder( UserBookBuy.this );
-                alertDialogBuilder.setTitle( "Information" )
-                        .setMessage( "Book is resreved. You can buy it from shop" )
-                        .setPositiveButton( "Ok",new DialogInterface.OnClickListener() {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(UserBookBuy.this);
+                alertDialogBuilder.setTitle("Information")
+                        .setMessage("Book is resreved. You can buy it from shop")
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             @Override
-                            public void onClick(DialogInterface dialog,int which) {
-                                Intent intent=new Intent( UserBookBuy.this,UserHomePage.class );
-                                startActivity( intent );
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(UserBookBuy.this, UserHomePage.class);
+                                startActivity(intent);
                             }
-                        } );
+                        });
                 alertDialogBuilder.show();
             }
-        } );   */
+        });
 
     }
 }

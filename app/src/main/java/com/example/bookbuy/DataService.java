@@ -12,8 +12,7 @@ import retrofit2.http.POST;
 
 public interface DataService {
 
-    @FormUrlEncoded
-    @POST("signup")
+    @POST("register")
     Call<String> createUser(@Body User user);
 
     @POST("login")
