@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.common.internal.Constants;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -30,33 +32,46 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class SignUp extends AppCompatActivity {
 
     EditText nameEt, emailSignUp, passwordSignUp, confirmPassword;
     Button submit;
-    private FirebaseAuth mAuth;
-    FirebaseFirestore db;
+    //private FirebaseAuth mAuth;
+    //FirebaseFirestore db;
     private static final String TAG = "EmailPassword";
     String tutorialsName;
+    Retrofit retrofit;
+    User user;
+    Intent intent;
+    String mode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-
         nameEt = findViewById(R.id.name);
         emailSignUp = findViewById(R.id.emailSignUp);
         passwordSignUp = findViewById(R.id.passwordSignUp);
         confirmPassword = findViewById(R.id.confirmPassword);
         submit = findViewById(R.id.submit);
+        mode = intent.getStringExtra("mode");
+        retrofit = RetrofitInstance.getRetrofitInstance();
+        DataService dataService = retrofit.create(DataService.class);
 
 
 
         //creating an instamce for database
-        db = FirebaseFirestore.getInstance();
+        //db = FirebaseFirestore.getInstance();
         //creating an instance for firebase authentication
-        mAuth = FirebaseAuth.getInstance();
+        //mAuth = FirebaseAuth.getInstance();
 
 
         submit.setOnClickListener(new View.OnClickListener() {
@@ -81,7 +96,39 @@ public class SignUp extends AppCompatActivity {
                     } else if (email.isEmpty() && password.isEmpty()) {
                         Toast.makeText(SignUp.this, "Fields are empty", Toast.LENGTH_SHORT).show();
                     } else if (!(email.isEmpty() && password.isEmpty())) {
-                        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(SignUp.this, new OnCompleteListener<AuthResult>() {
+
+                        Call<String> call1 = dataService.createUser(user);
+                        Call<String> callCheck = dataService.userlogin(user);
+                        callCheck.enqueue(new Callback<String>() {
+                            @Override
+                            public void onResponse(Call<String> call, Response<String> response) {
+                                Log.i("response", ""+ response.body());
+                                if (response.body().equalsIgnoreCase("Exist") && mode.equalsIgnoreCase("a")){
+                                    Toast.makeText(SignUp.this, "This Email already exists", Toast.LENGTH_LONG).show();
+                                }
+                                else {
+                                        call1.enqueue(new Callback<String>() {
+                                            @Override
+                                            public void onResponse(Call<String> call, Response<String> response) {
+                                                Toast.makeText(SignUp.this, "Successful", Toast.LENGTH_SHORT).show();
+                                                Intent intent = new Intent(SignUp.this, UserHomePage.class);
+                                                startActivity(intent);
+                                            }
+                                            @Override
+                                            public void onFailure(Call<String> call, Throwable t) {
+                                                Toast.makeText(SignUp.this, "Failed!!!", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<String> call, Throwable t) {
+                                Toast.makeText(SignUp.this, "Failed!!!", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                        /*mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(SignUp.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (!task.isSuccessful()) {
@@ -113,17 +160,14 @@ public class SignUp extends AppCompatActivity {
                                                     Log.d("error",e.getMessage());
                                                 }
                                             });
-
                                 }
                             }
-                        });
+                        });*/
                     } else {
                         Toast.makeText(SignUp.this, "Error occured!", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
         });
-
     }
-
 }

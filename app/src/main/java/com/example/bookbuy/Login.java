@@ -26,39 +26,54 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.TreeMap;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Login extends AppCompatActivity {
 
     EditText emailEt,passwordEt;
     Button login;
     TextView signUp;
-    private FirebaseAuth mFirebaseAuth;
-    FirebaseFirestore db;
-    private FirebaseAuth.AuthStateListener mAuthStateListener;
+    String mode;
+    Intent intent;
+    Retrofit retrofit;
+    User user;
+    //private FirebaseAuth mFirebaseAuth;
+    //FirebaseFirestore db;
+    //private FirebaseAuth.AuthStateListener mAuthStateListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        retrofit = RetrofitInstance.getRetrofitInstance();
+        DataService dataService = retrofit.create(DataService.class);
 
-        mFirebaseAuth = FirebaseAuth.getInstance();
+        intent = getIntent();
+        mode = intent.getStringExtra("mode");
+        //mFirebaseAuth = FirebaseAuth.getInstance();
         emailEt = findViewById(R.id.email);
         passwordEt = findViewById(R.id.password);
         login = findViewById(R.id.login);
         signUp = findViewById(R.id.signUp);
-        db = FirebaseFirestore.getInstance();
+        //db = FirebaseFirestore.getInstance();
 
 
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent= new Intent(Login.this,SignUp.class);
-                startActivity(intent);
+                Intent intent1= new Intent(Login.this,SignUp.class);
+                startActivity(intent1);
             }
         });
 
-        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+        /*mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
@@ -77,7 +92,7 @@ public class Login extends AppCompatActivity {
                     Toast.makeText(Login.this, "Please Login ", Toast.LENGTH_SHORT).show();
                 }
             }
-        };
+        };*/
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,7 +109,23 @@ public class Login extends AppCompatActivity {
                     } else if (email.isEmpty() && password.isEmpty()) {
                         Toast.makeText(Login.this, "Fields are empty", Toast.LENGTH_SHORT).show();
                     } else if (!(email.isEmpty() && password.isEmpty())) {
-                        mFirebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
+                            Call<String> callCheck = dataService.userlogin(user);
+                            callCheck.enqueue(new Callback<String>() {
+                                @Override
+                                public void onResponse(Call<String> call, Response<String> response) {
+                                    Log.i("response", "" + response.body());
+                                    if (response.body().equalsIgnoreCase("Exist") && mode.equalsIgnoreCase("a")) {
+                                        Toast.makeText(Login.this, " Login Successful ", Toast.LENGTH_LONG).show();
+                                    } else {
+                                        Toast.makeText(Login.this, "Invalid Details", Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                                @Override
+                                public void onFailure(Call<String> call, Throwable t) {
+                                    Toast.makeText(Login.this, "Invalid Details", Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        /*mFirebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (!task.isSuccessful()) {
@@ -111,7 +142,7 @@ public class Login extends AppCompatActivity {
                                 }
                                 }
                             }
-                        });
+                        });*/
                     } else {
                         Toast.makeText(Login.this, "Error occured!", Toast.LENGTH_SHORT).show();
                     }
@@ -121,6 +152,6 @@ public class Login extends AppCompatActivity {
 
         protected void onStart(){
         super.onStart();
-        mFirebaseAuth.addAuthStateListener(mAuthStateListener);
+      //  mFirebaseAuth.addAuthStateListener(mAuthStateListener);
         }
     }
